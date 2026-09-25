@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>SatQuery AI</title>
 
     <link rel="stylesheet" href="style.css">
@@ -11,6 +12,7 @@
 <body>
 
     <div class="container">
+
         <h1>🛰️ SatQuery AI</h1>
 
         <p class="subtitle">
@@ -18,21 +20,28 @@
         </p>
 
         <div class="card">
+
             <h2>Ask SatQuery AI</h2>
 
             <input
+                id="queryInput"
                 type="text"
                 placeholder="Ask about this satellite image..."
             >
 
-            <button>Analyze Image</button>
+            <button id="analyzeBtn">
+                Analyze Image
+            </button>
 
-            <div class="result">
+            <div id="result" class="result">
                 Your analysis will appear here.
             </div>
+
         </div>
+
     </div>
-    
+
     <script src="script.js"></script>
+
 </body>
 </html>
