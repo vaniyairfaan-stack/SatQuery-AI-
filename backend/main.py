@@ -1,4 +1,4 @@
-import os
+ import os
 
 import psycopg
 from fastapi import FastAPI, File, UploadFile, Form
@@ -20,6 +20,7 @@ app.add_middleware(
 @app.get("/")
 def home():
     return {
+        "success": True,
         "message": "SatQuery AI backend is running!"
     }
 
@@ -58,15 +59,22 @@ async def analyze(
     image: UploadFile = File(...),
     query: str = Form(...)
 ):
-    image_data = await image.read()
+    try:
+        image_data = await image.read()
 
-    return {
-        "success": True,
-        "filename": image.filename,
-        "query": query,
-        "image_size": len(image_data),
-        "analysis": (
-            "Satellite image received successfully. "
-            "SatQuery AI is ready to analyze the image."
-        )
-    }
+        return {
+            "success": True,
+            "filename": image.filename,
+            "query": query,
+            "image_size": len(image_data),
+            "analysis": (
+                "Satellite image received successfully. "
+                "SatQuery AI is ready to analyze the image."
+            )
+        }
+
+    except Exception as e:
+        return {
+            "success": False,
+            "error": str(e)
+        }
