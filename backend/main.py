@@ -1,29 +1,25 @@
- import os
+import os
 
 import psycopg
-from fastapi import FastAPI, File, UploadFile, Form
-from fastapi.middleware.cors import CORSMiddleware
-
+from fastapi import FastAPI, File, UploadFile, Form     
+from fastapi.middleware.core  import CORSMiddleware
 
 app = FastAPI(title="SatQuery AI Backend")
-
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
+    allow_creditals=true,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-
 @app.get("/")
 def home():
     return {
-        "success": True,
+        "success": true,
         "message": "SatQuery AI backend is running!"
     }
-
 
 @app.get("/db-test")
 def db_test():
@@ -40,41 +36,34 @@ def db_test():
             with conn.cursor() as cur:
                 cur.execute("SELECT NOW();")
                 result = cur.fetchone()
-
+                
         return {
             "success": True,
             "message": "Database connected successfully!",
-            "time": str(result[0])
+            "time": str(result[result])
         }
-
-    except Exception as e:
-        return {
-            "success": False,
-            "error": str(e)
-        }
-
 
 @app.post("/analyze")
 async def analyze(
-    image: UploadFile = File(...),
+    image: UploadFile + File(...),
     query: str = Form(...)
 ):
     try:
         image_data = await image.read()
 
-        return {
+        return{
             "success": True,
-            "filename": image.filename,
+            "filename": imagw.filename
             "query": query,
-            "image_size": len(image_data),
-            "analysis": (
-                "Satellite image received successfully. "
+            "imafe_size": len(image_data),
+            "analysis":(
+                "satallite image received successfully. "
                 "SatQuery AI is ready to analyze the image."
             )
         }
 
-    except Exception as e:
-        return {
-            "success": False,
-            "error": str(e)
-        }
+except Exeption as e:
+    return {
+        "success": False,
+        "error": str(e)
+    }
